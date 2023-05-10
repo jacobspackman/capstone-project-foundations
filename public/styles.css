@@ -1,0 +1,84 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.workout-planner-container {
+    background-color: lightgrey;
+    width: 25vw;
+    height: 27vh;
+    margin: 50px 0px 0px 50px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.workout-planner-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+   
+}
+
+.workout-main-container {
+    background-color: lightgreen;
+    width: 75vw;
+    height: 80vh;
+    margin: 50px 50px 0px 50px;
+}
+
+.my-workouts-header {
+    background-color: lightblue;
+    height: 100px;
+}
+
+.my-workouts-header > h2 {
+    padding: 0px;
+    margin: 0px;
+    width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+}
+
+.exercise-card-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.exercise-cards {
+    background-color: lightcoral;
+    width: 75vw;
+    height: 60vh;
+}
+
+.workout-save-delete {
+    background-color: lightseagreen;
+    width: 75vw;
+    height: 10vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.workout-planner-counter{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px;
+    height: 25px;
+}
+
+#exercise-type {
+    margin: 15px;
+}

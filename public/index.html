@@ -8,15 +8,90 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <main>
     <section class="workout-planner-container">
-        <header class="workout-planner-header"></header>
-        <d
+        <header class="workout-planner-header">
+            <h1>Workout Planner</h1>
+        </header>
+        <div class="workout-planner-form">
+            <label for="exercises"></label>
+                <select id="exercises" name="exercises">
+                    <option value="" disabled selected>Select an Exercise</option>
+                    <option value="">Shoulder Press (Shoulders)</option>
+                    <option value="">Delt Cable Fly Front (Shoulders)</option> 
+                    <option value="">Delt Cable Fly Side (Shoulders)</option>
+                    <option value="">Delt Cable Fly Rear (Shoulders)</option>
+                    <option value="">Lat Raises (Shoulders)</option>
+                    <option value="">Bench Press (Chest)</option>
+                    <option value="">Incline Bench Press (Chest)</option>
+                    <option value="">Cable Flys (Chest)</option>
+                    <option value="">Dumbbell Press (Chest)</option>
+                    <option value="">Incline Dumbell Press (Chest)</option>
+                    <option value="">Rope Pulldowns (Triceps)</option>
+                    <option value="">Flatbar Pulldowns (Triceps)</option>
+                    <option value="">Barbell Skullcrushers (Triceps)</option>
+                    <option value="">Dumbbell Skullcrushers (Triceps)</option>
+                    <option value="">Dips (Triceps)</option>
+                    <option value="">Dumbell Curls (Biceps)</option>
+                    <option value="">Barbell Curls (Biceps)</option>
+                    <option value="">Preacher Curls (Biceps)</option>
+                    <option value="">Cable Curls (Biceps)</option>
+                    <option value="">Spider Curls (Biceps)</option>
+                    <option value="">Squat (Legs)</option>
+                    <option value="">Leg Lifts (Legs)</option>
+                    <option value="">Calf Rasies (Legs)</option>
+                    <option value="">Dead Lift (Legs)</option>
+                    <option value="">Bulgarian Split Squat (Legs)</option>
+                    <option value="">Crunches (Core)</option>
+                    </select>
+
+            <div class="workout-planner-counter">
+                <p>Sets</p>
+                <button class="plus-minus-btn" type="minus">-</button>
+                <p>0</p>
+                <button class="plus-minus-btn" type="plus">+</button>
+            </div>
+
+            <div class="workout-planner-counter">
+                <p>Reps</p>
+                <button class="plus-minus-btn" type="minus">-</button>
+                <p>0</p>
+                <button class="plus-minus-btn" type="plus">+</button>
+            </div>
+
+            <label for="exercise-type"></label>
+                <select id="exercise-type" name="exercise-type">
+                    <option value="" disabled selected>Select a Type</option>
+                    <option value="">Standard</option>
+                    <option value="">To Fail</option>
+                    <option value="">Drop Set</option>
+                    </select>
+        </div>
     </section>
 
+
     <section class="workout-main-container">
-        <nav class="my-workouts-container"></nav>
-        <main class="exercise-card-container"></main>
+        <nav class="my-workouts-container">
+            <div class="my-workouts-contents" id="saved-workouts">
+                <header class="my-workouts-header">
+                    <h2>My Workouts</h2>
+                </header>
+            </div>
+        </nav>
+        <main class="exercise-card-container">
+            <div class="exercise-cards">
+                <div></div>
+            </div>
+            <div class="workout-save-delete">
+                <form>
+                    <input type="text" placeholder="Workout Name" class="workout-name-input"/>
+                    <button id="save-workout-btn">Save Workout</button>
+                </form>
+                <button id="delete-workout-btn">Delete Workout</button>
+            </div>
+        </main>
     </section>
+    </main>
 
 
 
