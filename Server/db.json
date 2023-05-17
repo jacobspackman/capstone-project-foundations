@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "exercise": "Place Holder",
+        "sets": 3,
+        "reps": 10,
+        "type": "Drop Set"
+    },
+    {
+        "id": 2,
+        "exercise": "Place Holder 2",
+        "sets": 3,
+        "reps": 10,
+        "type": "To Fail"
+    }
+]

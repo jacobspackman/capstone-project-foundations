@@ -12,7 +12,7 @@ main {
 .workout-planner-container {
     background-color: lightgrey;
     width: 25vw;
-    height: 27vh;
+    height: 40vh;
     margin: 50px 0px 0px 50px;
     padding: 15px;
     display: flex;
@@ -82,3 +82,15 @@ main {
 #exercise-type {
     margin: 15px;
 }
+
+.exercise-card {
+    background-color: turquoise;
+    width: 300px;
+    margin: 20px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }

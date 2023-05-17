@@ -13,7 +13,7 @@
         <header class="workout-planner-header">
             <h1>Workout Planner</h1>
         </header>
-        <div class="workout-planner-form">
+        <form class="workout-planner-form">
             <label for="exercises"></label>
                 <select id="exercises" name="exercises">
                     <option value="" disabled selected>Select an Exercise</option>
@@ -47,16 +47,16 @@
 
             <div class="workout-planner-counter">
                 <p>Sets</p>
-                <button class="plus-minus-btn" type="minus">-</button>
-                <p>0</p>
-                <button class="plus-minus-btn" type="plus">+</button>
+                <button class="plus-minus-btn" id="sets-minus-btn" type="button">-</button>
+                <p id="sets-counter-number">0</p>
+                <button class="plus-minus-btn" id="sets-plus-btn" type="button">+</button>
             </div>
 
             <div class="workout-planner-counter">
                 <p>Reps</p>
-                <button class="plus-minus-btn" type="minus">-</button>
-                <p>0</p>
-                <button class="plus-minus-btn" type="plus">+</button>
+                <button class="plus-minus-btn" id="reps-minus-btn" type="button">-</button>
+                <p id="reps-counter-number">0</p>
+                <button class="plus-minus-btn" id="reps-plus-btn" type="button">+</button>
             </div>
 
             <label for="exercise-type"></label>
@@ -66,7 +66,9 @@
                     <option value="">To Fail</option>
                     <option value="">Drop Set</option>
                     </select>
-        </div>
+
+            <button id="form-submit-btn">Add to Workout</button>
+        </form>
     </section>
 
 
@@ -79,9 +81,7 @@
             </div>
         </nav>
         <main class="exercise-card-container">
-            <div class="exercise-cards">
-                <div></div>
-            </div>
+            <div class="exercise-cards"></div>
             <div class="workout-save-delete">
                 <form>
                     <input type="text" placeholder="Workout Name" class="workout-name-input"/>
