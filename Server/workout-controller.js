@@ -7,6 +7,16 @@ module.exports = {
         res.status(200).send(workouts)
     },
 
+    getOneWorkouts: (req, res) => {
+        const { id } = req.params;
+        const idx = workouts.findIndex(workout => workout.id === +id)
+        if(idx >= 0){
+            res.status(200).send(workouts[idx])
+        } else{
+            res.sendStatus(400)
+        }
+    },
+
     deleteWorkouts: (req, res) => {
         const { id } = req.params;
         const idx = workouts.findIndex(workout => workout.id === +id)
@@ -16,13 +26,24 @@ module.exports = {
         } else{
             res.sendStatus(400)
         }
-
     },
 
+    updateWorkouts: (req, res) => {
+        console.log('hittin')
+        const { id } = req.params;
+        const { body } = req.body
+        const idx = workouts.findIndex(workout => workout.id === +id)
+        if(idx >= 0){
+            workouts[idx].push(body.exercises)
+            res.status(200).send(workouts)
+        }
+        }
+    ,
+
     createWorkouts: (req, res) => {
-        req.body.id = newWorkoutId
-        console.log("working")
+        req.body.id = workouts.length+1
         workouts.push(req.body)
+        console.log(workouts)
         res.status(200).send('Workout successfully added.')
     }
 }

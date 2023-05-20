@@ -47,25 +47,68 @@ const form = document.querySelector('.workout-planner-form')
 
 const baseURL = 'http://127.0.0.1:4202/exercises'
 
+// const [
+//     {
+//         "id": 1,
+//         "exercise": "Place Holder",
+//         "sets": 3,
+//         "reps": 10,
+//         "type": "Drop Set"
+//     },
+//     {
+//         "id": 2,
+//         "exercise": "Place Holder 2",
+//         "sets": 3,
+//         "reps": 10,
+//         "type": "To Fail"
+//     }
+// ]
+
+let userExercises = []
+
+
+
 const exercisesCallback = ({ data: exercises }) => {
     displayExercises(exercises)
 }
 
 
-const getAllExercises = () => axios.get(baseURL).then(exercisesCallback)
-const createExercise = body => axios.post(baseURL, body).then(exercisesCallback)
-const deleteExercise = id => axios.delete(`${baseURL}/${id}`).then(exercisesCallback)
-const updateExercise = (id, type) => axios.put(`${baseURL}/${id}`, {type}).then(exercisesCallback)
+// const getAllExercises = () => axios.get(baseURL).then(exercisesCallback)
+// const createExercise = body => axios.post(baseURL, body).then(exercisesCallback)
+const deleteExercise = id => {
+    const idx = userExercises.findIndex(exercise => exercise.id === +id)
+        if(idx >= 0){
+            userExercises.splice(idx, 1)
+            displayExercises(userExercises)
+        }
+}
+const updateExercise = (id, type) => {
+    console.log('hit update exercise', id, type)
+    const idx = userExercises.findIndex(exercise => exercise.id === +id)
+    console.log(idx)
+    if(type === 'plusRep'){
+        userExercises[idx].reps += 1
+    }else if(type === 'minusRep'){
+        userExercises[idx].reps -= 1
+    }else if (type === 'plusSet'){
+        userExercises[idx].sets += 1
+    }else {
+        userExercises[idx].sets -= 1
+    }
+
+    displayExercises(userExercises)
+}
 
 
-function submitHandler() {
-
+function submitHandler(e) {
+    e.preventDefault()
     let exercise = document.querySelector('#exercises')
     let sets = document.querySelector('#sets-counter-number')
     let reps = document.querySelector('#reps-counter-number')
     let type = document.querySelector('#exercise-type')
 
     let bodyObj = {
+        id: userExercises.length+1,
         exercise: exercise.value,
         sets: +sets.innerHTML,
         reps: +reps.innerHTML,
@@ -73,7 +116,12 @@ function submitHandler() {
     }
 
     
-    createExercise(bodyObj)
+    userExercises.push(bodyObj)
+    exercisesContainer.innerHTML = ""
+    userExercises.forEach(exer => {
+        console.log(exer.id)
+        createExerciseCard(exer)
+    })
 
     exercise.value = ''
     sets.value = 0
@@ -112,31 +160,47 @@ function displayExercises(arr) {
 
 form.addEventListener('submit', submitHandler)
 
-getAllExercises()
+// getAllExercises()
 
 
 //workout
 
 const workoutBaseURL = 'http://127.0.0.1:4202/workouts'
 
+
 const workoutForm = document.querySelector('#workout-name-form')
+const updateWorkoutBtn = document.querySelector('#update-workout-btn')
 const workoutDeleteBtn = document.querySelector('#delete-workout-btn')
+const clearBtn = document.querySelector('#clear-btn')
 
 const workoutCallback = (res) => {
     displayWorkouts(res.data)
 }
 
+const oneWorkoutCallback = (res) => {
+    userExercises = res.data.exercises
+    displayExercises(userExercises)
+    workoutForm.classList.add('hidden')
+    updateWorkoutBtn.classList.remove('hidden')
+    clearBtn.classList.remove('hidden')
+}
+
 const getAllWorkouts = () => axios.get(workoutBaseURL).then(workoutCallback)
+const getOneWorkout = id => axios.get(`http://127.0.0.1:4202/one-workouts/${id}`).then(oneWorkoutCallback)
 const createWorkout = body => axios.post(workoutBaseURL, body).then(workoutCallback)
 const deleteWorkout = id => axios.delete(`${workoutBaseURL}/${id}`).then(workoutCallback)
+const updateWorkout = (id, body) => axios.put(`${workoutBaseURL}/${id}`, body).then(workoutCallback)
 
 const workoutContainer = document.querySelector('.workout-link-container')
 
 function createWorkoutNav(workout) {
+    // console.log(workout)
     const workoutLink = document.createElement('div')
     workoutLink.classList.add('workout-link')
 
-    workoutLink.innerHTML = `<button class="workout-btn">${workout.name}</button>`
+    workoutLink.innerHTML = `<button onclick="getOneWorkout(${workout.id})" class="workout-btn">${workout.name}</button>`
+    workoutDeleteBtn.innerHTML = `<button onclick="deleteWorkout(${workout.id})" id="delete-workout-btn">Delete Workout</button>`
+    updateWorkoutBtn.innerHTML = `<button onclick="updateWorkout(${workout.id}, ${userExercises})" id="update-workout-btn" class="hidden">Update Workout</button>`
 
     workoutContainer.appendChild(workoutLink)
 }
@@ -148,27 +212,31 @@ function displayWorkouts(arr) {
     }
 }
 
-// let allExercises = require('./../db.json')
+
 
 function workoutSubmitHandler() {
 
     let name = document.querySelector('.workout-name-input')
-
-    let workoutBodyObj = {
-        name: name.value
+    
+    let workoutBodyObj = { 
+        name: name.value,
+        exercises: userExercises
     }
 
     createWorkout(workoutBodyObj)
     
-    
     name = ""
 }
 
-function workoutDelete(id) {
-    deleteWorkout(id)
+function clear() {
+    exercisesContainer.innerHTML = ``
+    workoutForm.classList.remove('hidden')
+    updateWorkoutBtn.classList.add('hidden')
+    clearBtn.classList.add('hidden')
 }
 
-workoutDeleteBtn.addEventListener('click', workoutDelete)
+clearBtn.addEventListener('click', clear)
+workoutDeleteBtn.addEventListener('click', clear)
 workoutForm.addEventListener('submit', workoutSubmitHandler)
 
 getAllWorkouts()

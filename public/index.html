@@ -84,11 +84,13 @@
         <main class="exercise-card-container">
             <div class="exercise-cards"></div>
             <div class="workout-save-delete">
-                <form id="workout-name-form">
+                <form id="workout-name-form" class="showing">
                     <input type="text" placeholder="Workout Name" class="workout-name-input"/>
                     <button class="btn" id="save-workout-btn">Save Workout</button>
                 </form>
                 <button id="delete-workout-btn">Delete Workout</button>
+                <button id="update-workout-btn" class="hidden">Update Workout</button>
+                <button id="clear-btn" class="hidden">Clear</button>
             </div>
         </main>
     </section>

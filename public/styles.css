@@ -175,3 +175,7 @@ main {
     color: red;
     text-decoration: underline;
   }
+
+  .hidden {
+    opacity: 0;
+  }
