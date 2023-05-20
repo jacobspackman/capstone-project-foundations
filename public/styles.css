@@ -162,3 +162,16 @@ main {
     border: none;
     cursor: pointer;
   }
+
+  .workout-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 5px
+  }
+
+  .workout-btn:hover {
+    color: red;
+    text-decoration: underline;
+  }

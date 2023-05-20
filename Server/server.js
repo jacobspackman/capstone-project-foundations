@@ -7,16 +7,19 @@ app.use(express.json())
 app.use(cors())
 
 const exercisesController = require("./controller.js")
-const { getEx, createEx, updateEx, deleteEx, getWorkouts, deleteWorkouts, createWorkouts } = exercisesController
+const { getEx, createEx, updateEx, deleteEx } = exercisesController
 
 app.get("/exercises", getEx)
 app.post("/exercises", createEx)
 app.put("/exercises/:id", updateEx)
 app.delete("/exercises/:id", deleteEx)
 
+const workoutController = require("./workout-controller.js")
+const { getWorkouts, deleteWorkouts, createWorkouts } = workoutController
+
 app.get("/workouts", getWorkouts)
 app.delete("/workouts/:id", deleteWorkouts)
-app.post("/wokrouts", createWorkouts)
+app.post("/workouts", createWorkouts)
 
 app.listen(4202, (req, res) => {
     console.log('Up on 4202')

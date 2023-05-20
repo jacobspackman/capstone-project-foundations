@@ -47,7 +47,7 @@ const form = document.querySelector('.workout-planner-form')
 
 const baseURL = 'http://127.0.0.1:4202/exercises'
 
-const exercisesCallback = ({ data: exercises}) => {
+const exercisesCallback = ({ data: exercises }) => {
     displayExercises(exercises)
 }
 
@@ -72,7 +72,7 @@ function submitHandler() {
         type: type.value
     }
 
-    console.log(sets)
+    
     createExercise(bodyObj)
 
     exercise.value = ''
@@ -117,22 +117,24 @@ getAllExercises()
 
 //workout
 
+const workoutBaseURL = 'http://127.0.0.1:4202/workouts'
+
 const workoutForm = document.querySelector('#workout-name-form')
 const workoutDeleteBtn = document.querySelector('#delete-workout-btn')
 
-const workoutCallback = ({ data: workouts }) => {
-    displayWorkouts(workouts)
-    console.log(workouts)
+const workoutCallback = (res) => {
+    displayWorkouts(res.data)
 }
 
-const getAllWorkouts = () => axios.get(baseURL).then(workoutCallback)
-const createWorkout = body => axios.post(baseURL, body).then(workoutCallback)
-const deleteWorkout = id => axios.delete(`${baseURL}/${id}`).then(workoutCallback)
+const getAllWorkouts = () => axios.get(workoutBaseURL).then(workoutCallback)
+const createWorkout = body => axios.post(workoutBaseURL, body).then(workoutCallback)
+const deleteWorkout = id => axios.delete(`${workoutBaseURL}/${id}`).then(workoutCallback)
 
 const workoutContainer = document.querySelector('.workout-link-container')
 
 function createWorkoutNav(workout) {
     const workoutLink = document.createElement('div')
+    workoutLink.classList.add('workout-link')
 
     workoutLink.innerHTML = `<button class="workout-btn">${workout.name}</button>`
 
@@ -149,15 +151,16 @@ function displayWorkouts(arr) {
 // let allExercises = require('./../db.json')
 
 function workoutSubmitHandler() {
+
     let name = document.querySelector('.workout-name-input')
 
     let workoutBodyObj = {
-        name: name.value,
-        // exercises: allExercises
+        name: name.value
     }
 
     createWorkout(workoutBodyObj)
-
+    
+    
     name = ""
 }
 

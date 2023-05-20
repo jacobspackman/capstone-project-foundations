@@ -1,6 +1,7 @@
 [
     {
         "id": 1,
+        "name": "test",
         "exercise": "Place Holder",
         "sets": 3,
         "reps": 10,
