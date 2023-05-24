@@ -47,31 +47,11 @@ const form = document.querySelector('.workout-planner-form')
 
 const baseURL = 'http://127.0.0.1:4202/exercises'
 
-// const [
-//     {
-//         "id": 1,
-//         "exercise": "Place Holder",
-//         "sets": 3,
-//         "reps": 10,
-//         "type": "Drop Set"
-//     },
-//     {
-//         "id": 2,
-//         "exercise": "Place Holder 2",
-//         "sets": 3,
-//         "reps": 10,
-//         "type": "To Fail"
-//     }
-// ]
-
 let userExercises = []
-
-
 
 const exercisesCallback = ({ data: exercises }) => {
     displayExercises(exercises)
 }
-
 
 // const getAllExercises = () => axios.get(baseURL).then(exercisesCallback)
 // const createExercise = body => axios.post(baseURL, body).then(exercisesCallback)
@@ -83,9 +63,9 @@ const deleteExercise = id => {
         }
 }
 const updateExercise = (id, type) => {
-    console.log('hit update exercise', id, type)
+    // console.log('hit update exercise', id, type)
     const idx = userExercises.findIndex(exercise => exercise.id === +id)
-    console.log(idx)
+    // console.log(idx)
     if(type === 'plusRep'){
         userExercises[idx].reps += 1
     }else if(type === 'minusRep'){
@@ -119,7 +99,7 @@ function submitHandler(e) {
     userExercises.push(bodyObj)
     exercisesContainer.innerHTML = ""
     userExercises.forEach(exer => {
-        console.log(exer.id)
+        // console.log(exer.id)
         createExerciseCard(exer)
     })
 
@@ -189,7 +169,7 @@ const getAllWorkouts = () => axios.get(workoutBaseURL).then(workoutCallback)
 const getOneWorkout = id => axios.get(`http://127.0.0.1:4202/one-workouts/${id}`).then(oneWorkoutCallback)
 const createWorkout = body => axios.post(workoutBaseURL, body).then(workoutCallback)
 const deleteWorkout = id => axios.delete(`${workoutBaseURL}/${id}`).then(workoutCallback)
-const updateWorkout = (id, body) => axios.put(`${workoutBaseURL}/${id}`, body).then(workoutCallback)
+const updateWorkout = (id, body) => axios.put(`http://127.0.0.1:4202/update-workouts/${id}`, body).then(workoutCallback)
 
 const workoutContainer = document.querySelector('.workout-link-container')
 
@@ -200,7 +180,7 @@ function createWorkoutNav(workout) {
 
     workoutLink.innerHTML = `<button onclick="getOneWorkout(${workout.id})" class="workout-btn">${workout.name}</button>`
     workoutDeleteBtn.innerHTML = `<button onclick="deleteWorkout(${workout.id})" id="delete-workout-btn">Delete Workout</button>`
-    updateWorkoutBtn.innerHTML = `<button onclick="updateWorkout(${workout.id}, ${userExercises})" id="update-workout-btn" class="hidden">Update Workout</button>`
+    updateWorkoutBtn.innerHTML = `<button onclick="updateWorkout(${workout.id}, ${userExercises})" id="update-workout-btn" class="hidden btn">Update Workout</button>`
 
     workoutContainer.appendChild(workoutLink)
 }
@@ -211,7 +191,6 @@ function displayWorkouts(arr) {
         createWorkoutNav(arr[i])
     }
 }
-
 
 
 function workoutSubmitHandler() {
