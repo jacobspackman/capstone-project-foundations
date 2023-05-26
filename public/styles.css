@@ -154,6 +154,15 @@ main {
     cursor: pointer;
   }
 
+  .update-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    cursor: pointer;
+  }
+
   .btn {
     color: white;
     background-color: black;

@@ -145,33 +145,34 @@ form.addEventListener('submit', submitHandler)
 
 //workout
 
-const workoutBaseURL = 'http://127.0.0.1:4202/workouts'
-
-
 const workoutForm = document.querySelector('#workout-name-form')
 const updateWorkoutBtn = document.querySelector('#update-workout-btn')
 const workoutDeleteBtn = document.querySelector('#delete-workout-btn')
 const clearBtn = document.querySelector('#clear-btn')
 
 const workoutCallback = (res) => {
+    console.log(res.data)
     displayWorkouts(res.data)
 }
 
 const oneWorkoutCallback = (res) => {
     userExercises = res.data.exercises
+    console.log(userExercises)
     displayExercises(userExercises)
     workoutForm.classList.add('hidden')
     updateWorkoutBtn.classList.remove('hidden')
     clearBtn.classList.remove('hidden')
 }
 
-const getAllWorkouts = () => axios.get(workoutBaseURL).then(workoutCallback)
+const getAllWorkouts = () => axios.get(`http://127.0.0.1:4202/workouts`).then(workoutCallback)
 const getOneWorkout = id => axios.get(`http://127.0.0.1:4202/one-workouts/${id}`).then(oneWorkoutCallback)
-const createWorkout = body => axios.post(workoutBaseURL, body).then(workoutCallback)
-const deleteWorkout = id => axios.delete(`${workoutBaseURL}/${id}`).then(workoutCallback)
-const updateWorkout = (id, body) => axios.put(`http://127.0.0.1:4202/update-workouts/${id}`, body).then(workoutCallback)
+const createWorkout = body => axios.post(`http://127.0.0.1:4202/workouts`, body).then(workoutCallback)
+const deleteWorkout = id => axios.delete(`http://127.0.0.1:4202/workouts/${id}`).then(workoutCallback)
+const updateWorkout = (id) => {
+    axios.put(`http://127.0.0.1:4202/workouts/${id}`,{exercises: userExercises}).then(workoutCallback)}
 
 const workoutContainer = document.querySelector('.workout-link-container')
+const btnContainer = document.querySelector('#hidden-btn-container')
 
 function createWorkoutNav(workout) {
     // console.log(workout)
@@ -179,8 +180,8 @@ function createWorkoutNav(workout) {
     workoutLink.classList.add('workout-link')
 
     workoutLink.innerHTML = `<button onclick="getOneWorkout(${workout.id})" class="workout-btn">${workout.name}</button>`
-    workoutDeleteBtn.innerHTML = `<button onclick="deleteWorkout(${workout.id})" id="delete-workout-btn">Delete Workout</button>`
-    updateWorkoutBtn.innerHTML = `<button onclick="updateWorkout(${workout.id}, ${userExercises})" id="update-workout-btn" class="hidden btn">Update Workout</button>`
+    btnContainer.innerHTML = `<button onclick="deleteWorkout(${workout.id})" id="delete-workout-btn">Delete Workout</button>
+    <button onclick="updateWorkout(${workout.id})" id="update-workout-btn" class="update-btn">Update Workout</button>`
 
     workoutContainer.appendChild(workoutLink)
 }

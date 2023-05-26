@@ -13,7 +13,7 @@ app.get("/workouts", getWorkouts)
 app.get("/one-workouts/:id", getOneWorkouts)
 app.delete("/workouts/:id", deleteWorkouts)
 app.post("/workouts", createWorkouts)
-app.put("/update-workouts/:id", updateWorkouts)
+app.put("/workouts/:id", updateWorkouts)
 
 app.listen(4202, (req, res) => {
     console.log('Up on 4202')

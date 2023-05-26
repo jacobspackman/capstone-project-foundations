@@ -30,12 +30,11 @@ module.exports = {
     },
 
     updateWorkouts: (req, res) => {
-        console.log('hittin')
         console.log(req.body)
         const { id } = req.params;
         for (let i = 0; i<workouts.length; i++){
-            if(id === workouts.id) {
-            workouts[i].push(req.body)
+            if(+id === +workouts[i].id) {
+            workouts[i].exercises.splice(i, 1, req.body.exercises[i])
             res.status(200).send(workouts)
             }else {
                 res.sendStatus(400)
